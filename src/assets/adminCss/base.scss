@@ -1,0 +1,72 @@
+:root[root-module='admin'] {
+  // ele+ 样式变量重写
+  --el-color-primary: #2f3142 !important;
+  --el-color-primary-light-3: #2f3142 !important;
+  --el-color-primary-light-7: #2f3142 !important;
+  --el-color-primary-light-9: #efefef !important;
+
+  --el-color-warning: #f3b14d !important;
+
+  --el-color-primary-dark-2: #2f3142 !important;
+
+  --el-border-color: #2f3142 !important;
+
+  // admin样式
+  --admin-c-title: #2f3142; //标题颜色
+  --admin-c-tableText-head: #abadb9; //表格列头
+  --admin-c-tableText-default: #656975; //表格正文default
+  --admin-c-tableText-focus: #e6e6e6; //表格正文focus
+  --admin-c-action-text: #ffcc79; //操作文字
+  --admin-c-nav-default: #878a93; //左侧菜单默认颜色
+
+  --admin-c-bgc: #4c4e5f; //背景色
+  --admin-c-border: #d8d8da; //边框色
+}
+:root {
+  --admin--color-background: var(--admin-c-bgc);
+  --admin-color-background-soft: var(--admin-c-title);
+  --admin-color-background-mute: var(--admin-c-tableText-default);
+
+  --admin-color-border: var(--admin-c-border);
+  --admin-color-border-hover: var(--admin-c-tableText-default);
+
+  --admin-color-heading: var(--admin-c-title);
+  --admin-color-heading-soft: var(--admin-c-tableText-head);
+  --admin-color-text: var(--admin-c-tableText-default);
+  --admin-color-text-soft: var(--admin-c-nav-default);
+
+  --admin-normal-btn-box-shadow: 0px 0px 0px 1px var(--admin-c-tableText-focus);
+  --admin-focus-btn-box-shadow: 0px 4px 30px 0px var(--admin-c-bgc);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --admin--color-background: var(--admin-c-bgc);
+    --admin-color-background-soft: var(--admin-c-title);
+    --admin-color-background-mute: var(--admin-c-tableText-default);
+
+    --admin-color-border: var(--admin-c-border);
+    --admin-color-border-hover: var(--admin-c-tableText-default);
+
+    --admin-color-heading: var(--admin-c-title);
+    --admin-color-heading-soft: var(--admin-c-tableText-head);
+    --admin-color-text: var(--admin-c-tableText-default);
+    --admin-color-text-soft: var(--admin-c-nav-default);
+
+    --admin-normal-btn-box-shadow: 0px 0px 0px 1px var(--admin-c-tableText-focus);
+    --admin-focus-btn-box-shadow: 0px 4px 30px 0px var(--admin-c-bgc);
+  }
+}
+
+.btn_style {
+  font-size: 14px;
+  width: 100px;
+  // text-align: center;
+  line-height: 24px;
+  padding: 12px 40px;
+  border-radius: 8px !important;
+}
+.btn_style_focus {
+  @extend .btn_style;
+  text-shadow: 0px 4px 30px rgba(76, 78, 95, 0.4);
+}

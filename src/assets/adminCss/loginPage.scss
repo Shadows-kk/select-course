@@ -1,0 +1,35 @@
+.loginPage {
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  position: relative;
+  .loginPanel {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    border-radius: 20px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 0px 10px #ccc;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .title {
+      font-size: 34px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 60px;
+    }
+    .formWrapper {
+      text-align: center;
+      .el-form-item .el-form-item__content {
+        width: 240px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}

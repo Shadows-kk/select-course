@@ -1,0 +1,25 @@
+@use './base.scss';
+
+.admin-module{
+  :deep(.el-form) {
+    .el-form-item .el-form-item__content .el-input {
+      .el-input__wrapper {
+        border-radius: 8px;
+        border: 1px solid var(--admin-color-border);
+        box-shadow: var(--admin-normal-btn-box-shadow);
+      }
+    }
+  }
+  
+  .el-radio-group {
+    .el-radio {
+      &:last-of-type {
+        margin-left: 30px;
+      }
+      .el-radio__label {
+        padding-left: 10px;
+      }
+    }
+  }
+}
+
