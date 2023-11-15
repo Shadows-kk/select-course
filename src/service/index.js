@@ -22,13 +22,12 @@ const eRequest = new Request({
       return err;
     },
     responseInterceptors: (config) => {
+      console.log(config);
       if (config.status === 200) {
-        if (config.data.result) {
-          return config;
-        } else {
-          ElMessage.error(config.data.errorMsg);
-          return;
-        }
+        return config;
+      } else {
+        ElMessage.error(config.data.errorMsg);
+        return;
       }
     },
     responseInterceptorsCatch: (error) => {

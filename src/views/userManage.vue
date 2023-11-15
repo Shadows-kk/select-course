@@ -6,10 +6,7 @@
       label-width="100px"
       class="row-flex-start"
     >
-      <el-form-item
-        label="学生姓名"
-        prop="userName"
-      >
+      <el-form-item label="学生姓名" prop="userName">
         <el-input
           v-model.number="formModel.userName"
           type="text"
@@ -89,8 +86,8 @@ const submitForm = (formEl) => {
         if (res.statusCode === 1) {
           ElMessage.error(res.ErrorMsg);
         } else {
-          const {result} = res
-          tableData.value = result
+          const { result } = res;
+          tableData.value = result;
         }
       });
     } else {
@@ -103,7 +100,7 @@ const submitForm = (formEl) => {
 const resetForm = (formEl) => {
   if (!formEl) return;
   formEl.resetFields();
-  getList()
+  getList();
 };
 const tableData = ref([]);
 const getList = () => {
@@ -126,10 +123,11 @@ const confirmClick = () => {
     deleteStudent(rowData.value).then((res) => {
       if (res.statusCode === 0) {
         ElMessage.success("删除成功！");
+        getList()
       }
     });
   }
-  centerDialogVisible = false;
+  centerDialogVisible.value = false;
 };
 const impartHandler = () => {
   ElMessage.success("已发送短信通知该学生！");

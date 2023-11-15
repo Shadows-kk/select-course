@@ -33,7 +33,7 @@ const router = createRouter({
         {
           path: "myCourse",
           name: "myCourse",
-          // component: () => import("../views/admin/mUser/index.vue"),
+          component: () => import("../views/myCourse.vue"),
           meta: {
             module: "myCourse",
           },

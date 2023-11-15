@@ -122,12 +122,14 @@ const deleteHandler = (data) => {
 const confirmClick = () => {
   if (rowData.value) {
     deleteCourse(rowData.value).then((res) => {
+      if (!res) return;
       if (res.statusCode === 0) {
         ElMessage.success("删除成功！");
+        getList();
       }
     });
   }
-  centerDialogVisible = false;
+  centerDialogVisible.value = false;
 };
 onMounted(() => {
   getList();

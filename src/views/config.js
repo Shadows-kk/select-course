@@ -90,3 +90,31 @@ export const courseManageTableOptions = [
     action: true,
   },
 ];
+export const myCourseTableOptions = [
+  {
+    label: "课程名称",
+    prop: "courseName",
+    showTooltip: true,
+  },
+  {
+    label: "上课老师",
+    prop: "courseTeacher",
+    showTooltip: true,
+  },
+  {
+    label: "上课学院",
+    prop: "courseCollege",
+    showTooltip: true,
+  },
+  {
+    label: "上课时间",
+    prop: "courseTime",
+    showTooltip: true,
+  },
+  {
+    label: "操作",
+    prop: "action",
+    align: "center",
+    action: true,
+  },
+];
