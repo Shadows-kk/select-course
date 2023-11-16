@@ -30,7 +30,17 @@
       <el-form-item>
         <el-button type="primary" @click="submitForm(formRef)">搜索</el-button>
         <el-button @click="resetForm(formRef)">重置</el-button>
-        <el-button @click="resetForm(formRef)">Excel导入课程</el-button>
+
+        <el-upload
+          action
+          class="importExcel"
+          accept=".xlsx, .xls"
+          :auto-upload="false"
+          :show-file-list="false"
+          :on-change="selectFileChange"
+        >
+          <el-button>Excel导入课程</el-button>
+        </el-upload>
       </el-form-item>
     </el-form>
     <Table ref="tableRef" :data="tableData" :options="courseManageTableOptions">
@@ -61,8 +71,11 @@
 </template>
 
 <script setup>
+import { getCurrentInstance } from "vue";
+import * as XLSX from "xlsx/xlsx.mjs";
 import { courseManageTableOptions } from "./config";
-import { deleteCourse, findCourse } from "@api/admin";
+import { deleteCourse, findCourse, uploadFile } from "@api/admin";
+const { proxy } = getCurrentInstance();
 const formRef = ref(null);
 const formModel = reactive({
   courseName: "",
@@ -100,6 +113,48 @@ const resetForm = (formEl) => {
   formEl.resetFields();
   getList();
 };
+const readFile = (file) => {
+  //文件读取
+  return new Promise((resolve) => {
+    let reader = new FileReader();
+    reader.readAsBinaryString(file); //以二进制的方式读取
+    reader.onload = (ev) => {
+      resolve(ev.target.result);
+    };
+  });
+};
+async function selectFileChange(ev) {
+  let file = ev.raw;
+  if (file.name.indexOf("xlsx") == -1 || file.name.indexOf("xls") == -1) {
+    ElMessage({
+      message: "请选择xlsx、xls格式文件",
+      type: "warning",
+    });
+    return;
+  }
+  if (!file) {
+    ElMessage({
+      message: "文件导入失败",
+      type: "warning",
+    });
+    return;
+  } else {
+    let data = await readFile(file);
+    let workbook = XLSX.read(data, { type: "binary" }); //解析二进制格式数据
+    // console.log('二进制数据的解析:')
+    // console.log(workbook)
+    let worksheet = workbook.Sheets[workbook.SheetNames[0]]; //获取第一个Sheet
+    let result = XLSX.utils.sheet_to_json(worksheet); //json数据格式
+    console.log(result);
+    uploadFile({ file: result }).then((res) => {
+      if (res.statusCode === 1) {
+        ElMessage.error(res.ErrorMsg);
+      } else {
+        ElMessage.success("上传成功");
+      }
+    });
+  }
+}
 const tableData = ref([]);
 const getList = () => {
   const requestData = {
@@ -139,5 +194,8 @@ onMounted(() => {
 <style lang="scss" scoped>
 :deep(.el-dialog--center) .el-dialog__body {
   text-align: center;
+}
+.importExcel {
+  margin-left: 15px;
 }
 </style>

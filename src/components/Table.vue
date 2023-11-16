@@ -1,8 +1,20 @@
 <template>
   <div class="tableWrapper">
-    <el-table ref="tableCpnRef" :data="data" style="width: 100%" v-bind="$attrs">
+    <el-table
+      ref="tableCpnRef"
+      :data="data"
+      style="width: 100%"
+      v-bind="$attrs"
+    >
       <el-table-column v-if="selection" type="selection" width="55" />
-      <el-table-column v-if="Index" type="index" fixed label="序列号" align="center" :width="100" />
+      <el-table-column
+        v-if="Index"
+        type="index"
+        fixed
+        label="序列号"
+        align="center"
+        :width="100"
+      />
       <template v-for="(item, index) in tableOptions" :key="index">
         <!-- 普通列，无需插槽处理 -->
         <el-table-column
@@ -49,49 +61,51 @@
 </template>
 
 <script setup>
-const tableCpnRef = ref(null)
+const tableCpnRef = ref(null);
 const props = defineProps({
   data: {
     type: Array,
-    required: true
+    required: true,
   },
   options: {
     type: Array,
-    required: true
+    required: true,
   },
   // 是否固定列
   fixedFlag: {
     type: Boolean,
-    default: false
+    default: false,
   },
   Index: {
     type: Boolean,
-    default: false
+    default: false,
   },
   selection: {
     type: Boolean,
-    default: false
+    default: false,
   },
   hasMoveBar: {
     type: Boolean,
-    default: false
-  }
-})
-const emits = defineEmits(['moveHandler'])
+    default: false,
+  },
+});
+const emits = defineEmits(["moveHandler"]);
 //表格最后一项
-const lastIndex = computed(() => props.data.length)
+const lastIndex = computed(() => props.data.length);
 // 拿到表格中的普通项
-const tableOptions = computed(() => props.options.filter((item) => !item.action))
+const tableOptions = computed(() =>
+  props.options.filter((item) => !item.action)
+);
 // 拿到表格中的操作项
-const actionOptions = computed(() => props.options.find((item) => item.action))
+const actionOptions = computed(() => props.options.find((item) => item.action));
 
 defineExpose({
-  tableCpnRef
-})
+  tableCpnRef,
+});
 </script>
 
 <style lang="scss" scoped>
-.tableWrapper{
+.tableWrapper {
   padding: 0 20px;
 }
 :deep(.el-table) {
@@ -109,12 +123,10 @@ defineExpose({
     opacity: 0.4;
   }
   .normalStatus {
-    background-image: url('@/assets/image/normal.jpg');
     background-size: cover;
   }
 
   .closedStatus {
-    background: url('@/assets/image/close.jpg');
     background-size: cover;
   }
   tr.current-row > td.el-table__cell {
@@ -122,7 +134,7 @@ defineExpose({
     color: #fff;
   }
   tr.current-row > td:first-of-type {
-    border-radius: 10px 0  0 10px;
+    border-radius: 10px 0 0 10px;
   }
   tr.current-row > td:last-of-type {
     border-radius: 0 10px 10px 0;

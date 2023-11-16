@@ -42,3 +42,15 @@ export function backCourse(params) {
     data: params,
   });
 }
+export function selctCourse(params) {
+  return eRequest.post({
+    url: "/Authority/SelctCourse",
+    data: params,
+  });
+}
+export function uploadFile(params) {
+  return eRequest.post({
+    url: "/Authority/UploadFile",
+    data: params,
+  });
+}

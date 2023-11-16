@@ -22,7 +22,7 @@ const eRequest = new Request({
       return err;
     },
     responseInterceptors: (config) => {
-      console.log(config);
+     
       if (config.status === 200) {
         return config;
       } else {

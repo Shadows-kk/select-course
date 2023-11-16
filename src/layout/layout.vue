@@ -2,7 +2,7 @@
   <el-container class="admin_container admin-module">
     <el-aside width="260px" class="aside_style column-space-center">
       <div class="logo column-center">
-        <div class="title">选课系统后台</div>
+        <div class="title">杭电选课系统</div>
         <div class="subTitle">The Admin of Course Selection</div>
       </div>
       <!-- <div class="nav"></div> -->
@@ -12,15 +12,15 @@
         <div class="subTitle">{{ username }}</div>
       </div>
     </el-aside>
-    <el-main class="main_style"> 
-    <div class="container">
-      <router-view />
+    <el-main class="main_style">
+      <div class="container">
+        <router-view />
       </div>
     </el-main>
   </el-container>
 </template>
 <script setup>
-import { UserFilled } from '@element-plus/icons-vue'
+import { UserFilled } from "@element-plus/icons-vue";
 import SideNav from "./SideNav.vue";
 import localCache from "@/plugins/cache";
 import showMsg from "@/plugins/showMsg.jsx";
@@ -33,8 +33,8 @@ const logout = () => {
 };
 const username = ref("默认用户");
 const getUsername = () => {
-  const {account}= localCache.getCache("userInfo")
-  username.value = account?? "默认用户";
+  const { account } = localCache.getCache("userInfo");
+  username.value = account ?? "默认用户";
 };
 onMounted(() => {
   getUsername();

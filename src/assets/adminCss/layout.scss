@@ -78,6 +78,19 @@
         .el-form {
           padding-bottom: 30px;
         }
+        .addcourse {
+          padding-left: 20px;
+          margin-bottom: 20px;
+          font-size: 20px;
+          font-weight: 600;
+          position: relative;
+          cursor: pointer;
+          i {
+            position: absolute;
+            top: 4px;
+            margin-left: 10px;
+          }
+        }
         .btn_wrapper {
           display: flex;
           justify-content: center;
