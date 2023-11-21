@@ -13,7 +13,7 @@ const router = createRouter({
       path: "/",
       name: "layout",
       component: () => import("../layout/layout.vue"),
-      redirect: "/login",
+      // redirect: "/login",
       children: [
         {
           path: "userManage",
@@ -42,6 +42,14 @@ const router = createRouter({
       ],
     },
   ],
+});
+router.beforeEach((to) => {
+  if (to.path !== '/login') {
+    const token = localCache.getCache('HDToken')
+    if (!token) {
+      return '/login'
+    }
+  }
 });
 
 export default router;

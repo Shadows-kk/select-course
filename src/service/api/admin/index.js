@@ -1,5 +1,11 @@
 import eRequest from "@/service/index";
 // 获取学生列表
+export function changePwd(params) {
+  return eRequest.post({
+    url: "/Authority/ChangePwd",
+    data: params,
+  });
+}
 export function getStudentList(params) {
   return eRequest.post({
     url: "/Authority/GetStudentList",
@@ -9,6 +15,18 @@ export function getStudentList(params) {
 export function deleteStudent(params) {
   return eRequest.post({
     url: "/Authority/DeleteStudent",
+    data: params,
+  });
+}
+export function sendSms(params) {
+  return eRequest.post({
+    url: "/Authority/sendSms",
+    data: params,
+  });
+}
+export function initPassword(params) {
+  return eRequest.post({
+    url: "/Authority/InitPassword",
     data: params,
   });
 }

@@ -60,7 +60,13 @@
 
 <script setup>
 import { userManageTableOptions } from "./config";
-import { getStudentList, deleteStudent, findStudent } from "@api/admin";
+import {
+  getStudentList,
+  deleteStudent,
+  findStudent,
+  sendSms,
+  initPassword,
+} from "@api/admin";
 const formRef = ref(null);
 const formModel = reactive({
   userName: "",
@@ -109,8 +115,14 @@ const getList = () => {
     tableData.value = result;
   });
 };
-const editHandler = () => {
-  ElMessage.success("密码重置成功！");
+const editHandler = (rowData) => {
+  initPassword(rowData).then((res) => {
+    if (res.statusCode === 0) {
+      ElMessage.success("密码重置成功！");
+    } else {
+      ElMessage.error(res.errorMsg);
+    }
+  });
 };
 const centerDialogVisible = ref(false);
 const rowData = ref({});
@@ -123,14 +135,20 @@ const confirmClick = () => {
     deleteStudent(rowData.value).then((res) => {
       if (res.statusCode === 0) {
         ElMessage.success("删除成功！");
-        getList()
+        getList();
       }
     });
   }
   centerDialogVisible.value = false;
 };
-const impartHandler = () => {
-  ElMessage.success("已发送短信通知该学生！");
+const impartHandler = (rowData) => {
+  sendSms(rowData).then((res) => {
+    if (res.statusCode === 0) {
+      ElMessage.success("已发送短信通知该学生！");
+    } else {
+      ElMessage.error(res.errorMsg);
+    }
+  });
 };
 onMounted(() => {
   getList();
