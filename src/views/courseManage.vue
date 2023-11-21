@@ -147,7 +147,8 @@ async function selectFileChange(ev) {
     let result = XLSX.utils.sheet_to_json(worksheet); //json数据格式
     console.log(result);
     uploadFile({ file: result }).then((res) => {
-      if (res.statusCode === 1) {
+      console.log(res);
+      if (res.StatusCode === 1) {
         ElMessage.error(res.ErrorMsg);
       } else {
         ElMessage.success("上传成功");
