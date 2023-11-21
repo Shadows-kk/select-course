@@ -93,9 +93,9 @@ const confirmClick = () => {
     if (!valid) return;
     changePwd(formData).then((res) => {
       if (res.code === 0) {
-        ElMessage.success("密码修改成功");
+        ElMessage.success("修改成功!");
       } else {
-        ElMessage.error("密码修改失败");
+        ElMessage.error(res.ErrorMsg);
       }
     });
   });

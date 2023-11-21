@@ -40,7 +40,7 @@
       class="addDialog"
       v-model="addDialogVisible"
       title="添加选课"
-      width="50%"
+      width="80%"
     >
       <el-form
         ref="formRef"
@@ -69,7 +69,7 @@
             autocomplete="off"
           />
         </el-form-item>
-        <el-form-item :style="{ width: '300px' }">
+        <el-form-item :style="{ width: '400px' }">
           <el-button type="primary" @click="submitForm(formRef)"
             >搜索</el-button
           >
