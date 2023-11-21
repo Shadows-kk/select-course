@@ -208,6 +208,8 @@ const selectHandler = (rowData) => {
     if (res.statusCode === 0) {
       ElMessage.success(res.errorMsg);
       getList();
+    } else {
+      ElMessage.error(res.errorMsg);
     }
   });
 };
