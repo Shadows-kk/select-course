@@ -146,10 +146,10 @@ async function selectFileChange(ev) {
     let worksheet = workbook.Sheets[workbook.SheetNames[0]]; //获取第一个Sheet
     let result = XLSX.utils.sheet_to_json(worksheet); //json数据格式
     console.log(result);
-    uploadFile({ file: result }).then((res) => {
+    uploadFile({ file: JSON.stringify(result) }).then((res) => {
       console.log(res);
-      if (res.StatusCode === 1) {
-        ElMessage.error(res.ErrorMsg);
+      if (res.statusCode === 1) {
+        ElMessage.error(res.errorMsg);
       } else {
         ElMessage.success("上传成功");
       }
