@@ -92,8 +92,8 @@ const confirmClick = () => {
   ruleFormRef.value.validate((valid) => {
     if (!valid) return;
     changePwd(formData).then((res) => {
-      if (res.code === 0) {
-        ElMessage.success("修改成功!");
+      if (res.statusCode === 0) {
+        ElMessage.success(res.errorMsg);
       } else {
         ElMessage.error(res.ErrorMsg);
       }
