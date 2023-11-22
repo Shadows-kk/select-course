@@ -54,14 +54,14 @@ function showMsg(msg, clickHandler) {
   // 渲染messageBox组件
   const app = createApp(MessageBox, {
     msg,
-
     onClick() {
       clickHandler &
         clickHandler(() => {
           app.unmount(div)
           div.remove()
         })
-    }
+    },
+
   })
   app.mount(div)
 }

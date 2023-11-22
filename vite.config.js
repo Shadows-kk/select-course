@@ -13,7 +13,7 @@ export default defineConfig({
     host: "0.0.0.0",
     proxy: {
       "/api": {
-        target: "http://bjmjxy.natappfree.cc",
+        target: "http://h46paw.natappfree.cc",
         changeOrigin: true,
       },
     },

@@ -53,6 +53,15 @@
       </span>
     </template>
   </el-dialog>
+  <el-dialog v-model="logoutVisible" title="退出登录" width="30%">
+    <span>确定要退出登录吗？</span>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="logoutVisible = false">取消</el-button>
+        <el-button type="primary" @click="confirmLogout"> 确定 </el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 <script setup>
 import { UserFilled } from "@element-plus/icons-vue";
@@ -95,21 +104,27 @@ const confirmClick = () => {
       if (res.statusCode === 0) {
         ElMessage.success(res.errorMsg);
       } else {
-        ElMessage.error(res.ErrorMsg);
+        ElMessage.error(res.errorMsg);
       }
     });
   });
 };
+const logoutVisible = ref(false);
 const logout = () => {
-  showMsg("此操作将退出登录，是否继续", (close) => {
-    router.push("/login");
-    close();
-  });
+  logoutVisible.value = true;
+  // showMsg("此操作将退出登录，是否继续", (close) => {
+  //   router.push("/login");
+  //   close();
+  // });
+};
+const confirmLogout = () => {
+  router.push("/login");
+  logoutVisible.value = false;
+  localCache.clearCache();
 };
 const username = ref("默认用户");
 const getUsername = () => {
-  const { account, passWord, userID } = localCache.getCache("userInfo");
-  formData.oldPwd = passWord;
+  const { account, userID } = localCache.getCache("userInfo");
   formData.userID = userID;
   username.value = account ?? "默认用户";
 };

@@ -34,13 +34,18 @@ const loginInfo = reactive({
   account: "",
   passWord: "",
 });
-const router = useRouter()
-const login = async() => {
-  const { result } =await loginApi(loginInfo);
-  const { token='', userInfo } = result ||{};
+const router = useRouter();
+const login = async () => {
+  const { statusCode, errorMsg, result } = await loginApi(loginInfo);
+  const { token = "", userInfo } = result || {};
+  if (statusCode === 1) {
+    ElMessage.error(errorMsg);
+    return;
+  }
+  ElMessage.success('登录成功');
   localCache.setCache("HDToken", token);
   localCache.setCache("userInfo", userInfo);
-  router.push('/')
+  router.push("/");
 };
 </script>
 
