@@ -42,6 +42,12 @@ export function findCourse(params) {
     data: params,
   });
 }
+export function perCourseStudents(params) {
+  return eRequest.post({
+    url: "/Authority/PerCourseStudents",
+    data: params,
+  });
+}
 export function deleteCourse(params) {
   return eRequest.post({
     url: "/Authority/DeleteCourse",

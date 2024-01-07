@@ -84,6 +84,12 @@ export const courseManageTableOptions = [
     showTooltip: true,
   },
   {
+    label: "选课学生",
+    prop: "courseID",
+    showTooltip: true,
+    slot: "courseID",
+  },
+  {
     label: "操作",
     prop: "action",
     align: "center",

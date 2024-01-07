@@ -44,6 +44,9 @@
       </el-form-item>
     </el-form>
     <Table ref="tableRef" :data="tableData" :options="courseManageTableOptions">
+      <template #courseID="{ scope }">
+        <el-button @click="viewStudents(scope.row)">查看选课学生</el-button>
+      </template>
       <template #action="{ scope }">
         <div class="btn_wrapper">
           <span class="commonStyle delete" @click="deleteHandler(scope.row)"
@@ -67,6 +70,28 @@
         </span>
       </template>
     </el-dialog>
+    <el-dialog
+      id="print-table"
+      v-model="studentListVisible"
+      title="选课学生列表"
+      width="30%"
+      align-center
+      center
+    >
+      <el-table :data="studentList" style="width: 100%">
+        <el-table-column prop="userName" label="姓名" />
+        <el-table-column prop="classNum" label="年级" />
+        <el-table-column prop="userPhone" label="电话" />
+      </el-table>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="exportStuPDF"> 导出PDF </el-button>
+          <el-button type="primary" @click="studentListVisible = false">
+            关闭
+          </el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -74,7 +99,12 @@
 import { getCurrentInstance } from "vue";
 import * as XLSX from "xlsx/xlsx.mjs";
 import { courseManageTableOptions } from "./config";
-import { deleteCourse, findCourse, uploadFile } from "@api/admin";
+import {
+  deleteCourse,
+  findCourse,
+  perCourseStudents,
+  uploadFile,
+} from "@api/admin";
 const { proxy } = getCurrentInstance();
 const formRef = ref(null);
 const formModel = reactive({
@@ -171,6 +201,33 @@ const getList = () => {
 };
 const centerDialogVisible = ref(false);
 const rowData = ref({});
+const studentList = ref([]);
+const studentListVisible = ref(false);
+const viewStudents = (row) => {
+  perCourseStudents(row).then((res) => {
+    if (res.statusCode !== 0) return;
+    studentList.value = res.result;
+    studentListVisible.value = true;
+  });
+};
+
+const exportStuPDF = () => {
+  // 拼接
+  let _docHtml = document.querySelector(
+    "#print-table .el-table__header-wrapper .el-table__header"
+  );
+  let _table_body = document.querySelector(
+    "#print-table .el-table__body-wrapper .el-table__body tbody"
+  );
+  _table_body.insertBefore(_docHtml, _table_body.children[0]);
+  // 导出
+  proxy.$exportPDF(_table_body, "选课学生列表");
+  // 还原
+  let _header_wrapper = document.querySelector(
+    "#print-table .el-table__header-wrapper"
+  );
+  _header_wrapper.appendChild(_table_body.querySelector(".el-table__header"));
+};
 const deleteHandler = (data) => {
   centerDialogVisible.value = true;
   rowData.value = data;
